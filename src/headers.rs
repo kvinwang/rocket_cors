@@ -103,7 +103,7 @@ impl Origin {
                 Ok(origin) => Outcome::Success(origin),
                 Err(e) => Outcome::Failure((Status::BadRequest, e)),
             },
-            None => Outcome::Forward(()),
+            None => Outcome::Forward(Status::NotFound),
         }
     }
 }
@@ -166,7 +166,7 @@ impl AccessControlRequestMethod {
                 Ok(request_method) => Outcome::Success(request_method),
                 Err(_) => Outcome::Failure((Status::BadRequest, crate::Error::BadRequestMethod)),
             },
-            None => Outcome::Forward(()),
+            None => Outcome::Forward(Status::NotFound),
         }
     }
 }
@@ -214,7 +214,7 @@ impl AccessControlRequestHeaders {
                     unreachable!("`AccessControlRequestHeaders::from_str` should never fail")
                 }
             },
-            None => Outcome::Forward(()),
+            None => Outcome::Forward(Status::NotFound),
         }
     }
 }
